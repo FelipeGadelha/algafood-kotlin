@@ -1,10 +1,10 @@
 package br.com.portfolio.algafood.api.v1.dto.request
 
-import br.com.portfolio.algafood.domain.entity.Kitchen
+import br.com.portfolio.algafood.domain.entity.State
 import javax.validation.constraints.NotBlank
 
-class KitchenRq(
+class StateRq(
     @field:NotBlank val name: String
 ) {
-    fun toEntity() = Kitchen(name = name)
+    fun toEntity() = State(name = name)
 }

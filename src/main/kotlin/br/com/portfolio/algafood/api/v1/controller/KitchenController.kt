@@ -13,11 +13,10 @@ import javax.validation.Valid
 class KitchenController(
     private val kitchenService: KitchenService
 ) {
-
     @GetMapping
     //@JsonView(View.Basic::class)
     fun findAll() = ResponseEntity
-            .ok(kitchenService.findAll().map{ k -> KitchenRs(k) })
+        .ok(kitchenService.findAll().map{ k -> KitchenRs(k) })
 
     @GetMapping("/{kitchenId}")
     fun findById(@PathVariable("kitchenId") id: Long) = ResponseEntity

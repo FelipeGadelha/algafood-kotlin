@@ -32,10 +32,7 @@ class StateService(
     @Transactional
     fun update(id: Long, updated: State): State {
         var state = this.findById(id)
-        state = State.Builder()
-            .id(state.id!!)
-            .name(updated.name)
-            .build()
+        state = State(state.id, name = updated.name)
         return this.save(state)
     }
 

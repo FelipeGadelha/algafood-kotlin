@@ -32,10 +32,7 @@ class KitchenService(
     @Transactional
     fun update(id: Long, updated: Kitchen): Kitchen {
         var kitchen = this.findById(id)
-        kitchen = Kitchen.Builder()
-            .id(kitchen.id!!)
-            .name(updated.name)
-            .build()
+        kitchen = Kitchen(id = kitchen.id, name = updated.name)
         return this.save(kitchen)
     }
 

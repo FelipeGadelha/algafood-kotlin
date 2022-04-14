@@ -9,5 +9,8 @@ class KitchenRs private constructor(
         @JsonView(View.Basic::class) val name: String
 ) {
     constructor(kitchen: Kitchen) :
-        this(id = kitchen.id, name = kitchen.name)
+        this(
+            id = kitchen.id,
+            name = kitchen.name
+        )
 }
