@@ -5,6 +5,7 @@ import br.com.portfolio.algafood.api.v1.dto.request.CityRq
 import br.com.portfolio.algafood.api.v1.dto.response.CityRs
 import br.com.portfolio.algafood.domain.service.CityService
 import com.fasterxml.jackson.annotation.JsonView
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -13,7 +14,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping(value = ["/v1/cities"])
-class CityController constructor(
+class CityController @Autowired constructor(
     private val cityService: CityService
 ) {
     @JsonView(View.Basic::class)

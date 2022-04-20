@@ -3,7 +3,7 @@ package br.com.portfolio.algafood.domain.service
 import br.com.portfolio.algafood.domain.entity.Kitchen
 import br.com.portfolio.algafood.domain.exception.EntityInUseException
 import br.com.portfolio.algafood.domain.exception.EntityNotFoundException
-import br.com.portfolio.algafood.domain.repository.KitchenRepository
+import br.com.portfolio.algafood.domain.repository.IKitchenRepository
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.stereotype.Service
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class KitchenService(
-    private val kitchenRepository: KitchenRepository
+    private val kitchenRepository: IKitchenRepository
 ) {
     companion object {
         const val MSG_KITCHEN_NOT_FOUND = "Não existe Cozinha com o ID %d"
@@ -32,17 +32,14 @@ class KitchenService(
     @Transactional
     fun update(id: Long, updated: Kitchen): Kitchen {
         var kitchen = this.findById(id)
-        kitchen = Kitchen(id = kitchen.id, name = updated.name)
+        kitchen = kitchen.update(kitchen)
         return this.save(kitchen)
     }
 
     @Transactional
     fun deleteById(id: Long) {
         try {
-            kitchenRepository.run {
-                deleteById(id)
-                flush()
-            }
+            kitchenRepository.run { deleteById(id); flush() }
         } catch (e: EmptyResultDataAccessException) {
             throw EntityNotFoundException(String.format(MSG_KITCHEN_NOT_FOUND, id))
         } catch (e: DataIntegrityViolationException) {

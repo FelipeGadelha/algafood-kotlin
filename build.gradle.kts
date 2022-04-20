@@ -23,6 +23,15 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.7")
+	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+	implementation("net.sf.jasperreports:jasperreports:4.5.1")
+
+//	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-functions
+//	implementation("net.sf.jasperreports:jasperreports-functions:6.19.1")
+//	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+//	implementation("net.sf.jasperreports:jasperreports:6.19.1")
+
+
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

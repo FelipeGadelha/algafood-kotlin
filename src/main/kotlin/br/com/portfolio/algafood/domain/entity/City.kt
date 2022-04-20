@@ -1,5 +1,6 @@
 package br.com.portfolio.algafood.domain.entity
 
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -9,11 +10,15 @@ import javax.validation.constraints.NotNull
 data class City(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-
-    @field:NotBlank val name: String,
-
-    @field:NotNull
-    @field:ManyToOne(cascade = [CascadeType.ALL])
-    @field:JoinColumn(name = "state_id", nullable = false)
-    val state: State
-)
+    @NotBlank val name: String = "",
+    @NotNull
+    @ManyToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "state_id", nullable = false)
+    val state: State = State()
+) {
+    fun update(updated: City) = City(
+        id = if (Objects.isNull(id)) this.id else updated.id,
+        name = updated.name,
+        state = updated.state
+    )
+}

@@ -10,10 +10,5 @@ class CityRq(
     @field:NotBlank val name: String,
     @field:NotNull val stateId: Long
 ) {
-    fun toEntity() = City(
-        name = name,
-        state = State(
-            id = stateId,
-            name = "")
-    )
+    fun toEntity() = City(name = name, state = State(id = stateId))
 }

@@ -3,15 +3,16 @@ package br.com.portfolio.algafood.domain.service
 import br.com.portfolio.algafood.domain.entity.City
 import br.com.portfolio.algafood.domain.exception.EntityInUseException
 import br.com.portfolio.algafood.domain.exception.EntityNotFoundException
-import br.com.portfolio.algafood.domain.repository.CityRepository
+import br.com.portfolio.algafood.domain.repository.ICityRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class CityService(
-    private val cityRepository: CityRepository,
+class CityService @Autowired constructor(
+    private val cityRepository: ICityRepository,
     private val stateService: StateService
 ) {
     companion object {
@@ -38,17 +39,14 @@ class CityService(
     @Transactional
     fun update(id: Long, updated: City): City {
         var city = this.findById(id)
-        city = city.copy(name = updated.name)
+        city = city.update(city)
         return this.save(city)
     }
 
     @Transactional
     fun deleteById(id: Long) {
         try {
-            cityRepository.run {
-                deleteById(id)
-                flush()
-            }
+            cityRepository.run { deleteById(id); flush() }
         } catch (e: EmptyResultDataAccessException) {
             throw EntityNotFoundException(String.format(MSG_CITY_NOT_FOUND, id))
         } catch (e: DataIntegrityViolationException) {
